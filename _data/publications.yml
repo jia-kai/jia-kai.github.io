@@ -1,0 +1,161 @@
+- cat: Neural Network Verification
+  pubs:
+    - title: "Exploiting Verified Neural Networks via Floating Point Numerical Error"
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "28th Static Analysis Symposium (SAS 2021) (to appear)"
+      tldr: >
+        Complete verifiers (and many incomplete verifiers) for neural networks
+        ignore floating point error. We show that this leads to wrong
+        verification by presenting adversarial examples for networks that are
+        claimed to be robust by verifiers.
+      abs: >
+        <p>Motivated by the need to reliably characterize the robustness of
+        deep neural networks, researchers have developed verification
+        algorithms for deep neural networks. Given a neural network, the
+        verifiers aim to answer whether certain properties are guaranteed with
+        respect to all inputs in a space. However, little attention has been
+        paid to floating point numerical error in neural network verification.</p>
+
+        <p>We show that the negligence of floating point error is easily
+        exploitable in practice. For a pretrained neural network, we present a
+        method that efficiently searches inputs regarding which a complete
+        verifier incorrectly claims the network is robust. We also present a
+        method to construct neural network architectures and weights that
+        induce wrong results of an incomplete verifier. Our results highlight
+        that, to achieve practically reliable verification of neural networks,
+        any verification system must accurately (or conservatively) model the
+        effects of any floating point computations in the network inference or
+        verification system. </p>
+      pdf: "https://arxiv.org/pdf/2003.03021"
+      code: "https://github.com/jia-kai/realadv"
+    - title: "Verifying Low-dimensional Input Neural Networks via Input Quantization"
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "28th Static Analysis Symposium (SAS 2021) (to appear)"
+      tldr: >
+        Enumerating input states in the discretized input space is more
+        efficient and robust in verifying low-dimensional input neural networks
+        than those sophisticated verifiers.
+      abs: >
+        <p>Deep neural networks are an attractive tool for compressing the control
+        policy lookup tables in systems such as the Airborne Collision
+        Avoidance System (ACAS). It is vital to ensure the safety of such
+        neural controllers via verification techniques. The problem of
+        analyzing ACAS Xu networks has motivated many successful neural network
+        verifiers. These verifiers typically analyze the internal computation
+        of neural networks to decide whether a property regarding the
+        input/output holds. The intrinsic complexity of neural network
+        computation renders such verifiers slow to run and vulnerable to
+        floating-point error.</p>
+
+        <p>This paper revisits the original problem of verifying ACAS Xu networks.
+        The networks take low-dimensional sensory inputs with training data
+        extracted from a lookup table. We propose to prepend an input
+        quantization layer to the network. Quantization allows efficient
+        verification via input state enumeration, whose complexity is bounded
+        by the size of the quantization space. Quantization is equivalent to
+        nearest-neighbor interpolation at run time, which has been shown to
+        provide acceptable accuracy for ACAS in simulation. Moreover, our
+        technique can deliver exact verification results immune to
+        floating-point error if we directly enumerate the network outputs on
+        the target inference implementation or on an accurate simulation of the
+        target implementation.</p>
+    - title: "Efficient Exact Verification of Binarized Neural Networks"
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "Advances in Neural Information Processing Systems 33 (NeurIPS 2020)"
+      conf_url: "https://papers.nips.cc/paper/2020/hash/1385974ed5904a438616ff7bdb3f7439-Abstract.html"
+      tldr: >
+        Efficiently verify BNNs via improved SAT solving and training methods
+        that induce easy-to-verify networks; train robust BNNs.
+      abs: >
+        Concerned with the reliability of neural networks, researchers have
+        developed verification techniques to prove their robustness. Most
+        verifiers work with real-valued networks. Unfortunately, the exact
+        (complete and sound) verifiers face scalability challenges and provide
+        no correctness guarantees due to floating point errors. We argue that
+        Binarized Neural Networks (BNNs) provide comparable robustness and
+        allow exact and significantly more efficient verification. We present a
+        new system, EEV, for efficient and exact verification of BNNs. EEV
+        consists of two parts: (i) a novel SAT solver that speeds up BNN
+        verification by natively handling the reified cardinality constraints
+        arising in BNN encodings; and (ii) strategies to train solver-friendly
+        robust BNNs by inducing balanced layer-wise sparsity and low
+        cardinality bounds, and adaptively cancelling the gradients.  We
+        demonstrate the effectiveness of EEV by presenting the first exact
+        verification results for L-inf-bounded adversarial robustness of
+        nontrivial convolutional BNNs on the MNIST and CIFAR10 datasets.
+        Compared to exact verification of real-valued networks of the same
+        architectures on the same tasks, EEV verifies BNNs hundreds to
+        thousands of times faster, while delivering comparable verifiable
+        accuracy in most cases.
+      pdf: "https://arxiv.org/pdf/2005.03597"
+      code: "https://github.com/jia-kai/eevbnn"
+      bib: |
+        @inproceedings{jia2020efficient,
+         author = {Jia, Kai and Rinard, Martin},
+         booktitle = {Advances in Neural Information Processing Systems},
+         editor = {H. Larochelle and M. Ranzato and R. Hadsell and M. F. Balcan and H. Lin},
+         pages = {1782--1795},
+         publisher = {Curran Associates, Inc.},
+         title = {Efficient Exact Verification of Binarized Neural Networks},
+         url = {https://proceedings.neurips.cc/paper/2020/file/1385974ed5904a438616ff7bdb3f7439-Paper.pdf},
+         volume = {33},
+         year = {2020}
+        }
+- cat: Side Projects
+  pubs:
+    - title: "SANM: A Symbolic Asymptotic Numerical Solver with Applications in Mesh Deformation"
+      authors:
+        - Kai Jia
+      conf: "ACM Transactions on Graphics, Volume 40, Issue 4 (Proc. SIGGRAPH 2021)"
+      conf_url: "https://dl.acm.org/doi/10.1145/3450626.3459755"
+      tldr: >
+        Solve general nonlinear equations via higher-order approximation. This
+        work is an extension of my course project at Advanced Computer
+        Graphics.
+      abs: >
+        <p>Solving nonlinear systems is an important problem. Numerical
+        continuation methods efficiently solve certain nonlinear systems. The
+        Asymptotic Numerical Method (ANM) is a powerful continuation method
+        that usually converges faster than Newtonian methods. ANM explores the
+        landscape of the function by following a parameterized solution curve
+        approximated with a high-order power series. Although ANM has
+        successfully solved a few graphics and engineering problems, prior to
+        our work, applying ANM to new problems required significant effort
+        because the standard ANM assumes quadratic functions, while manually
+        deriving the power series expansion for nonquadratic systems is a
+        tedious and challenging task.</p>
+
+        <p>This paper presents a novel solver, SANM, that applies ANM to solve
+        symbolically represented nonlinear systems. SANM solves such systems in
+        a fully automated manner. SANM also extends ANM to support many
+        nonquadratic operators, including intricate ones such as singular value
+        decomposition. Furthermore, SANM generalizes ANM to support the
+        implicit homotopy form. Moreover, SANM achieves high computing
+        performance via optimized system design and implementation.</p>
+
+        <p>We deploy SANM to solve forward and inverse elastic force
+        equilibrium problems and controlled mesh deformation problems with a
+        few constitutive models. Our results show that SANM converges faster
+        than Newtonian solvers, requires little programming effort for new
+        problems, and delivers comparable or better performance than a
+        hand-coded, specialized ANM solver. While we demonstrate on mesh
+        deformation problems, SANM is generic and potentially applicable to
+        many tasks.</p>
+      pdf: "https://arxiv.org/pdf/2105.08535"
+      code: "https://github.com/jia-kai/SANM"
+      bib: |
+        @article{jia2021sanm,
+          title={{SANM}: A Symbolic Asymptotic Numerical Solver with Applications in Mesh Deformation},
+          author={Jia, Kai},
+          journal={{ACM} Transactions on Graphics (Proc. {SIGGRAPH})},
+          publisher={ACM},
+          year={2021},
+          volume={40},
+          number={4}
+        }

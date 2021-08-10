@@ -1,0 +1,113 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+@media only screen and (min-width: 600px) {
+  .home #two-col  {
+    #left {
+      float: left;
+      margin-right: 15px;
+      width: 200px;
+    }
+    #right {
+      overflow: hidden;
+    }
+  }
+}
+
+.home #two-col #left {
+  img {
+    width: 90%;
+    border-radius: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  .name {
+    font-weight: bold;
+    font-size: 35px;
+  }
+  .info {
+    color: rgba(0,0,0,.54);
+  }
+  text-align: center;
+}
+
+.social a {
+  font-size: $base-font-size * 1.6;
+  color: Mediumslateblue;
+  margin: 3px;
+}
+
+.publist-cat {
+  .icon {
+    color: #99738e;
+    font-size: $base-font-size * 0.8;
+    padding-right: 3px;
+    vertical-align: 20%;
+  }
+  .text {
+    font-size: $base-font-size * 1.5;
+  }
+}
+
+.publist-entry {
+  margin-left: 30px;
+  .title {
+    margin-left: -20px;
+  }
+  .authors .self {
+    font-weight: 600;
+  }
+  .conf {
+    font-style: italic;
+  }
+  .tldr {
+    .tldr-title {
+      display: table-cell;
+      font-style: italic;
+      padding-right: 10px;
+    }
+    .tldr-content {
+      display: table-cell;
+      width: 100%;
+    }
+  }
+  .links a {
+    margin-right: 10px;
+  }
+  .abstract {
+    font-size: $base-font-size * 0.8;
+  }
+  .bibtex a {
+    border: 1px solid;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: $base-font-size * 0.8;
+  }
+  .bibtex pre {
+    font-size: $base-font-size * 0.6;
+  }
+}
+
+.page-section-title {
+  span {
+    display: table-cell;
+    font-size: $base-font-size * 1.3;
+    font-weight: 500;
+  }
+  .right {
+    padding-left: 10px;
+    display: table-cell;
+    width: 100%;
+    hr {
+      margin-top: -$base-font-size * 0.3;
+      border: 1px dashed $grey-color;
+    }
+  }
+}
+
+footer .wrapper {
+  color: $grey-color;
+}

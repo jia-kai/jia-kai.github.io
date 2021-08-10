@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "My website is up!"
+date: 2021-08-10 17:40:03 +0800
+categories: none
+---
+
+I finally decided to set up my website. I'd like to achieve these goals:
+
+1. This website should be static and hosted on github-page (instead of my own
+   servers). I want to maximize my freedom of controlling the content while
+   avoiding doing IT operations myself.
+2. The publication list should be readable, useful, and complementary to
+   indexing services such as Google Scholar. It should give some aesthetic
+   pleasure and contain related information such as code and bibtex for each
+   paper. The list should be sorted by topic categories, unlike most academic
+   websites that sort papers chronologically or alphabetically, which is already
+   covered by Google Scholar.
+3. I should be able to publish blog posts on this website. I hope I can write
+   more in the future about various topics, including paper explanation,
+   technical tips, research philosophy, and everything else. Having said that, I
+   won't promise any bounds on update frequency for this blog :)
+4. The website should look great on both desktop and mobile screens.
+
+After checking out a few options, I decided to develop the website myself to
+meet my goals, starting from the minima theme that comes with Jekyll. I have not
+been working on front-end development for quite some years. This time I learned
+something new and useful: [cdnjs.com](https://cdnjs.com/){:target="_blank"}
+provides a great cache for javascript and CSS libraries, and [Font Awesome
+](https://fontawesome.com){:target="_blank"} and [Academicons
+](https://jpswalsh.github.io/academicons){:target="_blank"} provide useful icon
+sets.  The source code of this site is hosted on [github
+](https://github.com/jia-kai/jia-kai.github.io){:target="_blank"} and you are
+welcome to adopt it :)

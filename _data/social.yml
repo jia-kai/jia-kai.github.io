@@ -1,0 +1,15 @@
+- icon: ai ai-google-scholar-square
+  link: https://scholar.google.com/citations?user=4Ua2gIQAAAAJ&hl=en
+  name: Google Scholar
+
+- icon: fas fa-envelope
+  link: mailto:jiakai@mit.edu
+  name: Email
+
+- icon: fab fa-github
+  link: https://github.com/jia-kai
+  name: GitHub
+
+- icon: fab fa-linkedin
+  link: https://www.linkedin.com/in/kai-jia-948a442b/
+  name: LinkedIn

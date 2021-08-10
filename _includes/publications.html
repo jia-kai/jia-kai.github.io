@@ -1,0 +1,82 @@
+<div class="page-section-title"><span>Publications</span><span class="right"><hr /></span></div>
+{% assign self_highlight = "<span class='self'>" |
+    append: site.title | append: "</span>" %}
+{% assign pub_id = 0 %}
+{% for pub_group in site.data.publications %}
+<div class="publist-cat">
+  <i class="fas fa-list icon"></i>
+  <span class="text">{{ pub_group.cat }}</span>
+</div>
+{% for pub in pub_group.pubs %}
+  <div class="publist-entry">
+    <div class="title">{{ pub.title }}</div>
+    <div class="authors">{{ pub.authors | join: ", " |
+      replace: site.title, self_highlight }}
+    </div>
+    <div class="conf">
+      {% if pub.conf_url %}
+        <a href="{{ pub.conf_url }}" target="_blank">
+      {% endif %}
+      {{ pub.conf }}
+      {% if pub.conf_url %}
+        </a>
+      {% endif %}
+    </div>
+    {% if pub.tldr %}
+      <div class="tldr">
+        <span class="tldr-title">TL;DR</span>
+        <span class="tldr-content">{{ pub.tldr }}</span>
+      </div>
+    {% endif %}
+    <div class="links">
+      {% if pub.pdf %}
+        <a href="{{ pub.pdf }}" target="_blank"><i class="far fa-file-alt"></i>[pdf]</a>
+      {% endif %}
+      {% if pub.code %}
+        <a href="{{ pub.code }}" target="_blank"><i class="fas fa-code"></i>[code]</a>
+      {% endif %}
+      <a href="#" onclick="$('#abs{{pub_id}}').toggle(500); return false;"
+        ><i class="fas fa-book-reader"></i>[abstract]</a>
+      {% if pub.bib %}
+        <a href="#" onclick="$('#bib{{pub_id}}').toggle(500);
+                    $('#bib{{pub_id}} a').text('Copy');
+                    return false;"
+          ><i class="fas fa-quote-left"></i>[bibtex]</a>
+      {% endif %}
+    </div>
+    <div class="abstract" id="abs{{pub_id}}">{{ pub.abs }}</div>
+    {% if pub.bib %}
+      <div class="bibtex" id="bib{{pub_id}}">
+        <a href="#"
+           onclick="copyToClipboard($('#bibc{{pub_id}}').text(), this); return false;"
+          >Copy</a>
+        <pre id="bibc{{pub_id}}">{{ pub.bib | escape }}</pre>
+      </div>
+    {% endif %}
+  </div>
+  {% assign pub_id = pub_id | plus: 1 %}
+{% endfor %}
+{% endfor %}
+<script>
+  $('.abstract').toggle();
+  $('.bibtex').toggle();
+  function copyToClipboard(text, ele) {
+      // see https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
+      ele = $(ele);
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(text).select();
+      var succeed;
+      try {
+        succeed = document.execCommand("copy");
+      } catch(e) {
+        succeed = false;
+      }
+      $temp.remove();
+      if(succeed) {
+        ele.text("Copied")
+      } else {
+        ele.text("Failed to copy")
+      }
+    }
+</script>

@@ -1,0 +1,24 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="wrapper">
+
+    &copy; {{ site.copyright_begin }}-{{ 'now' | date: "%Y" }} {{ site.title }}.
+    Last updated {{ 'now' | date: "%b %d, %Y" }}.
+
+    {% if site.clicky %}
+      <div style="float: right">
+        <a title="Real Time Web Analytics"
+         href="http://clicky.com/{{site.clicky}}">
+          <img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif"
+          border="0" /></a>
+        <script async src="//static.getclicky.com/{{site.clicky}}.js"></script>
+        <noscript><p>
+          <img alt="Clicky" width="1" height="1"
+            src="//in.getclicky.com/{{site.clicky}}ns.gif" /></p></noscript>
+      </div>
+    {% endif %}
+
+  </div>
+
+</footer>

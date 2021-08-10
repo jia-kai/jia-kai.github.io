@@ -1,0 +1,6 @@
+<div class="social">
+  {% for item in site.data.social %}
+  <a href="{{ item.link }}" target="_blank" title="{{ item.name }}"
+      ><i class="{{ item.icon }}"></i></a>
+  {% endfor %}
+</div>

@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  <div id="two-col">
+    <div id="left">
+      <img src="{{site.avatar}}" alt="avatar" />
+      <br />
+      <span class="name">{{ site.title }}</span>
+      <br />
+      <span class="info">
+        {{ site.position }}
+        <br />
+        {{ site.affiliation }}
+      </span>
+      {%- include social.html -%}
+    </div>
+    <div id="right">
+      <a id="jump-about"></a>
+      {{ content }}
+    </div>
+  </div>
+  <a id="jump-publications"></a>
+  {%- include publications.html -%}
+  {%- if site.posts.size > 0 -%}
+  <a id="jump-posts"></a>
+  <div class="page-section-title"><span>Posts</span><span class="right"><hr /></span></div>
+  <ul class="post-list">
+    {%- for post in site.posts -%}
+    <li>
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+      {%- if site.show_excerpts -%}
+      {{ post.excerpt }}
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+</div>
