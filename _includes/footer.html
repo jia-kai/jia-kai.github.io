@@ -6,8 +6,8 @@
     &copy; {{ site.copyright_begin }}-{{ 'now' | date: "%Y" }} {{ site.title }}.
     Last updated {{ 'now' | date: "%b %d, %Y" }}.
 
-    {% if site.clicky %}
-      <div style="float: right">
+    <div style="float: right">
+      {% if site.clicky %}
         <a title="Real Time Web Analytics"
          href="http://clicky.com/{{site.clicky}}">
           <img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif"
@@ -16,8 +16,13 @@
         <noscript><p>
           <img alt="Clicky" width="1" height="1"
             src="//in.getclicky.com/{{site.clicky}}ns.gif" /></p></noscript>
-      </div>
-    {% endif %}
+        <br />
+      {% endif %}
+      Page visits:
+      <a href="https://www.hitwebcounter.com" target="_blank">
+        <img src="https://hitwebcounter.com/counter/counter.php?page=7851589&style=0006&nbdigits=5&type=page&initCount=0" title="Free Counter" Alt="web counter" border="0" />
+      </a>
+    </div>
 
   </div>
 
