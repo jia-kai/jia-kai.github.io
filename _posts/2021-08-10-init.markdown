@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "My website is up!"
-date: 2021-08-10 17:40:03 +0800
+date: 2021-08-10 21:05:51 +0800
 categories: none
 ---
 
@@ -20,7 +20,9 @@ I finally decided to set up my website. I'd like to achieve these goals:
    more in the future about various topics, including paper explanation,
    technical tips, research philosophy, and everything else. Having said that, I
    won't promise any bounds on update frequency for this blog :)
-4. The website should look great on both desktop and mobile screens.
+4. The website should look great on both desktop and mobile screens, in major
+   modern browsers (even with JavaScript disabled), and also in text-only
+   browsers (such as ELinks).
 
 After checking out a few options, I decided to develop the website myself to
 meet my goals, starting from the minima theme that comes with Jekyll. I have not
