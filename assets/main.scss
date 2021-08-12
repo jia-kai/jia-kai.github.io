@@ -55,6 +55,11 @@
   margin-left: 30px;
   .title {
     margin-left: -20px;
+    i {
+      font-size: 10px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
   }
   .authors .self {
     font-weight: 600;
@@ -91,6 +96,7 @@
 }
 
 .page-section-title {
+  margin-top: $base-font-size;
   span {
     display: table-cell;
     font-size: $base-font-size * 1.3;

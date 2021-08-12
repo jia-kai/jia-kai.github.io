@@ -1,6 +1,7 @@
 - cat: Neural Network Verification
   pubs:
     - title: "Exploiting Verified Neural Networks via Floating Point Numerical Error"
+      key: realadv
       authors:
         - Kai Jia
         - Martin Rinard
@@ -31,6 +32,7 @@
       pdf: "https://arxiv.org/pdf/2003.03021"
       code: "https://github.com/jia-kai/realadv"
     - title: "Verifying Low-dimensional Input Neural Networks via Input Quantization"
+      key: quantverify
       authors:
         - Kai Jia
         - Martin Rinard
@@ -64,6 +66,7 @@
         the target inference implementation or on an accurate simulation of the
         target implementation.</p>
     - title: "Efficient Exact Verification of Binarized Neural Networks"
+      key: eevbnn
       authors:
         - Kai Jia
         - Martin Rinard
@@ -110,14 +113,16 @@
 - cat: Side Projects
   pubs:
     - title: "SANM: A Symbolic Asymptotic Numerical Solver with Applications in Mesh Deformation"
+      key: sanm
       authors:
         - Kai Jia
       conf: "ACM Transactions on Graphics, Volume 40, Issue 4 (Proc. SIGGRAPH 2021)"
       conf_url: "https://dl.acm.org/doi/10.1145/3450626.3459755"
       tldr: >
         Solve general nonlinear equations via higher-order approximation. This
-        work is an extension of my course project at Advanced Computer
-        Graphics.
+        paper also contains a short introduction of the very elegant and
+        interesting but lesser-known Asymptotic Numerical Method. This work is
+        an extension of my course project at Advanced Computer Graphics.
       abs: >
         <p>Solving nonlinear systems is an important problem. Numerical
         continuation methods efficiently solve certain nonlinear systems. The

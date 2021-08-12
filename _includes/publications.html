@@ -9,7 +9,11 @@
 </div>
 {% for pub in pub_group.pubs %}
   <div class="publist-entry">
-    <div class="title">{{ pub.title }}</div>
+    <div class="title"><a
+         href="#paper-{{pub.key}}"
+         id="paper-{{pub.key}}"><i class="far fa-circle"></i></a>
+      {{ pub.title }}
+    </div>
     <div class="authors">{{ pub.authors | join: ", " |
       replace: site.title, self_highlight }}
     </div>
