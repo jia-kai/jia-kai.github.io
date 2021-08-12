@@ -44,9 +44,8 @@
       <a href="#" onclick="$('#abs{{pub_id}}').toggle(500); return false;"
         ><i class="fas fa-book-reader"></i>[abstract]</a>
       {% if pub.bib %}
-        <a href="#" onclick="$('#bib{{pub_id}}').toggle(500);
-                    $('#bib{{pub_id}} a').text('Copy');
-                    return false;"
+          <a href="#"
+             onclick="$('#bib{{pub_id}}').toggle(500, function(){$('#bib{{pub_id}} a').text('Copy');});return false;"
           ><i class="fas fa-quote-left"></i>[bibtex]</a>
       {% endif %}
     </div>

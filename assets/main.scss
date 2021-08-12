@@ -54,6 +54,7 @@
 .publist-entry {
   margin-left: 30px;
   .title {
+    font-style: italic;
     margin-left: -20px;
     i {
       font-size: 10px;
@@ -70,7 +71,7 @@
   .tldr {
     .tldr-title {
       display: table-cell;
-      font-style: italic;
+      font-weight: 200;
       padding-right: 10px;
     }
     .tldr-content {
