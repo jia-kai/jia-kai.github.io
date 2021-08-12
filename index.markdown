@@ -15,5 +15,5 @@ Rinard](http://people.csail.mit.edu/rinard/){:target="_blank"}.
 I obtained my B.E. in Computer Science and Technology at Tsinghua University
 in 2015. Before starting my PhD career at MIT, I worked at a startup company
 where I led the development of an in-house deep learning system that was later
-open sourced as [MegEngine
-](https://github.com/MegEngine/MegEngine){:target="_blank"}.
+open sourced as [
+MegEngine](https://github.com/MegEngine/MegEngine){:target="_blank"}.
