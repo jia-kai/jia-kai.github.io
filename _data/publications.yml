@@ -5,7 +5,7 @@
       authors:
         - Kai Jia
         - Martin Rinard
-      conf: "28th Static Analysis Symposium (SAS 2021) (to appear)"
+      conf: "28th Static Analysis Symposium (SAS 2021)"
       tldr: >
         Complete verifiers (and many incomplete verifiers) for neural networks
         ignore floating point error. We show that this leads to wrong
@@ -31,12 +31,24 @@
         verification system. </p>
       pdf: "https://arxiv.org/pdf/2003.03021"
       code: "https://github.com/jia-kai/realadv"
+      bib: |
+        @inproceedings{jia2021exploiting,
+          author="Jia, Kai and Rinard, Martin",
+          editor="Dr{\u{a}}goi, Cezara and Mukherjee, Suvam and Namjoshi, Kedar",
+          title="Exploiting Verified Neural Networks via Floating Point Numerical Error",
+          booktitle="Static Analysis",
+          year="2021",
+          publisher="Springer International Publishing",
+          address="Cham",
+          pages="191--205",
+          isbn="978-3-030-88806-0"
+        }
     - title: "Verifying Low-dimensional Input Neural Networks via Input Quantization"
       key: quantverify
       authors:
         - Kai Jia
         - Martin Rinard
-      conf: "28th Static Analysis Symposium (SAS 2021) (to appear)"
+      conf: "28th Static Analysis Symposium (SAS 2021)"
       tldr: >
         Enumerating input states in the discretized input space is more
         efficient and robust in verifying low-dimensional input neural networks
@@ -65,6 +77,18 @@
         floating-point error if we directly enumerate the network outputs on
         the target inference implementation or on an accurate simulation of the
         target implementation.</p>
+      bib: |
+        @inproceedings{jia2021verifying,
+          author="Jia, Kai and Rinard, Martin",
+          editor="Dr{\u{a}}goi, Cezara and Mukherjee, Suvam and Namjoshi, Kedar",
+          title="Verifying Low-Dimensional Input Neural Networks via Input Quantization",
+          booktitle="Static Analysis",
+          year="2021",
+          publisher="Springer International Publishing",
+          address="Cham",
+          pages="206--214",
+          isbn="978-3-030-88806-0"
+        }
     - title: "Efficient Exact Verification of Binarized Neural Networks"
       key: eevbnn
       authors:
