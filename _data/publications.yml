@@ -51,6 +51,7 @@
         - Martin Rinard
       conf: "28th Static Analysis Symposium (SAS 2021)"
       conf_url: "https://conf.researchr.org/home/sas-2021#event-overview"
+      pdf: "https://arxiv.org/pdf/2108.07961"
       tldr: >
         Enumerating input states in the discretized input space is more
         efficient and robust in verifying low-dimensional input neural networks
