@@ -1,0 +1,324 @@
+---
+layout: post
+title:  "ABI is the culprit, once again"
+date: 2021-12-01 23:27:49 -0500
+categories: none
+---
+
+A few days ago, some researchers from UCSB approached me regarding a few
+questions on my [EEVBNN code][eevbnn]. I decided to
+run the code to give them a definite answer. Since my original environment has
+been lost, I setup a new virtualenv with the current versions of dependence
+libraries.
+
+I thought it should be quick. Oops, I got segfault instead of seeing the result.
+Fine. Let's get a backtrace from gdb:
+```txt
+(gdb) bt
+#0  Minisat::vec<Minisat::Option*>::push (
+    this=0x7ffef57fdbd0 <Minisat::Option::getOptionList()::options>,
+    elem=@0x7fffffff97b0: 0x7fff94b4c3a0 <opt_var_decay>)
+    at /.../eevbnn/eevbnn/minisatcs/minisat/mtl/Vec.h:107
+#1  0x00007fff94b2c1ae in Minisat::Option::Option (this=0x7fff94b4c3a0 <opt_var_decay>,
+    name_=0x7fff94b3cf8b "var-decay",
+    desc_=0x7fff94b3cf68 "The variable activity decay factor", cate_=0x7fff94b3b4b4 "CORE",
+    type_=0x7fff94b3b388 "<double>")
+    at /.../eevbnn/eevbnn/minisatcs/minisat/utils/Options.h:76
+#2  0x00007fff94b2c2c2 in Minisat::DoubleOption::DoubleOption (
+    this=0x7fff94b4c3a0 <opt_var_decay>, c=0x7fff94b3b4b4 "CORE",
+    n=0x7fff94b3cf8b "var-decay", d=0x7fff94b3cf68 "The variable activity decay factor",
+    def=0.94999999999999996, r=...)
+    at /.../eevbnn/eevbnn/minisatcs/minisat/utils/Options.h:129
+#3  0x00007fff94b2a02b in __static_initialization_and_destruction_0 (__initialize_p=1,
+    __priority=65535)
+    at /.../eevbnn/eevbnn/minisatcs/minisat/core/Solver.cc:51
+#4  0x00007fff94b2a595 in _GLOBAL__sub_I_Solver.cc(void) ()
+    at /.../eevbnn/eevbnn/minisatcs/minisat/core/Solver.cc:1922
+#5  0x00007ffff7fdce2e in call_init () from /lib64/ld-linux-x86-64.so.2
+```
+
+The code in question comes from the [MinisatCS][MinisatCS] solver, derived from
+[Minisat][Minisat]. The segfault occurs in the constructor `Option::Option()`,
+which is called during initialization of global objects that represent command
+line options. The constructor pushes the current class instance to a list of
+options:
+```cpp
+static vec<Option*>& getOptionList () { static vec<Option*> options; return options; }
+// ...
+Option(...) { getOptionList().push(this); }
+```
+
+Now the `vec<Option*>` data structure seems to contain garbage that ultimately
+causes the segfault:
+```txt
+Thread 1 "python" received signal SIGSEGV, Segmentation fault.
+Minisat::vec<Minisat::Option*>::push (this=0x7ffef57fdbd0 <Minisat::Option::getOptionList()::options>, elem=@0x7fffffff97b0: 0x7fff10e893a0 <opt_var_decay>) at /.../eevbnn/eevbnn/minisatcs/minisat/mtl/Vec.h:107
+107             m_data[m_sz++] = elem;
+(gdb) p *this
+$1 = {m_sz = 1487297953, m_cap = 21845, m_data = 0x3400000033}
+```
+
+# Variable initialization
+
+Well, variable initialization in C++ does have some [catches][cppvarinit]. For
+example, global variables that need dynamic initialization are initialized
+before `main()` in a standalone executable or upon library loading as in our
+case.  The order of initialization of variables in different TUs (translation
+units) is indeterminately sequenced. Thus function calls during global variable
+initialization call for special attention, as you need to ensure that the callee
+does not access global variables.
+
+Still, I am quite confident that the usage in MinisatCS/Minisat is well-defined,
+since the local static variable in `getOptionList()` is initialized at the first
+function call that can safely occur during global initialization, which is a
+standard C++ practice. We can figure out more details by looking at the
+disassemble:
+```txt
+(gdb) disassemble $pc,$pc+64
+Dump of assembler code from 0x7fff10e690bb to 0x7fff10e690fb:
+=> 0x00007fff10e690bb <_ZN7Minisat6Option13getOptionListEv+4>:  mov    0x1eb5e(%rip),%rax        # 0x7fff10e87c20
+   0x00007fff10e690c2 <_ZN7Minisat6Option13getOptionListEv+11>: movzbl (%rax),%eax
+   0x00007fff10e690c5 <_ZN7Minisat6Option13getOptionListEv+14>: test   %al,%al
+   0x00007fff10e690c7 <_ZN7Minisat6Option13getOptionListEv+16>: sete   %al
+   0x00007fff10e690ca <_ZN7Minisat6Option13getOptionListEv+19>: test   %al,%al
+   0x00007fff10e690cc <_ZN7Minisat6Option13getOptionListEv+21>: je     0x7fff10e69118 <_ZN7Minisat6Option13getOptionListEv+97>
+   0x00007fff10e690ce <_ZN7Minisat6Option13getOptionListEv+23>: mov    0x1eb4b(%rip),%rax        # 0x7fff10e87c20
+   0x00007fff10e690d5 <_ZN7Minisat6Option13getOptionListEv+30>: mov    %rax,%rdi
+   0x00007fff10e690d8 <_ZN7Minisat6Option13getOptionListEv+33>: call   0x7fff10e56f80 <__cxa_guard_acquire@plt>
+   0x00007fff10e690dd <_ZN7Minisat6Option13getOptionListEv+38>: test   %eax,%eax
+   0x00007fff10e690df <_ZN7Minisat6Option13getOptionListEv+40>: setne  %al
+   0x00007fff10e690e2 <_ZN7Minisat6Option13getOptionListEv+43>: test   %al,%al
+   0x00007fff10e690e4 <_ZN7Minisat6Option13getOptionListEv+45>: je     0x7fff10e69118 <_ZN7Minisat6Option13getOptionListEv+97>
+   0x00007fff10e690e6 <_ZN7Minisat6Option13getOptionListEv+47>: lea    0x1ef13(%rip),%rax        # 0x7fff10e88000
+   0x00007fff10e690ed <_ZN7Minisat6Option13getOptionListEv+54>: mov    %rax,%rdx
+   0x00007fff10e690f0 <_ZN7Minisat6Option13getOptionListEv+57>: mov    0x1e9f1(%rip),%rax        # 0x7fff10e87ae8
+   0x00007fff10e690f7 <_ZN7Minisat6Option13getOptionListEv+64>: mov    %rax,%rsi
+   0x00007fff10e690fa <_ZN7Minisat6Option13getOptionListEv+67>: mov    0x1eae7(%rip),%rax        # 0x7fff10e87be8
+End of assembler dump.
+```
+
+Note that `_ZN7Minisat6Option13getOptionListEv` is the [mangled name][mangle]:
+```txt
+$ c++filt _ZN7Minisat6Option13getOptionListEv
+Minisat::Option::getOptionList()
+```
+
+The assembly above shows that `__cxa_guard_acquire` is first called to check a
+guard variable that records whether the static object has been initialized. It
+roughly corresponds to the following code snippet (taken from [here][initcode]):
+```cpp
+if (obj_guard.first_byte == 0) {
+    if ( __cxa_guard_acquire (&obj_guard) ) {
+        try {
+            ... initialize the object ...;
+        } catch (...) {
+            __cxa_guard_abort (&obj_guard);
+            throw;
+        }
+        ... queue object destructor with __cxa_atexit() ...;
+        __cxa_guard_release (&obj_guard);
+    }
+}
+```
+
+We can also check that the guard variables do exist, as indicated by the last
+line below:
+```txt
+$ nm -nCD /home/jiakai/.pyxbld/lib.linux-x86_64-3.9/eevbnn/_minisatcs.cpython-39-x86_64-linux-gnu.so | grep getOptionList
+000000000003a0b7 W Minisat::Option::getOptionList()
+000000000005a730 u Minisat::Option::getOptionList()::options
+000000000005a740 u guard variable for Minisat::Option::getOptionList()::options
+```
+
+Enough for the background.
+
+I've confirmed via gdb that the initialization part is skipped. As we now have
+garbage in the `options` object at the fist function call, the reason should be
+that the guard variable and the object itself somehow get corrupted, perhaps
+during initialization of other objects. Or is it?
+
+# Symbol resolution in dynamic linking
+
+While debugging, I noticed something wrong at the first hit of the breakpoint
+`Minisat::Option::getOptionList()`:
+```txt
+(gdb) f
+#0  0x00007ffef538b6c0 in Minisat::Option::getOptionList() ()
+   from /.../eevbnn/venv/lib/python3.9/site-packages/pysolvers.cpython-39-x86_64-linux-gnu.so
+```
+
+Aha! Another Minisat exists in the process space, which was brought in by
+`pysolvers.so` that belongs to [pysat][pysat]. When `dlopen` is used to load a
+shared library, "unique global" symbols (as indicated by the lowercase `u` in
+the above `nm` output) are resolved to one definition globally. GCC identifies
+static local variables as such unique global symbols. I did not find a document
+to describe the underlying reasoning of this design. It makes sense to share the
+same variables in different libraries, but GCC uses `D` for global variables in
+the meanwhile, which seems not very consistent. For comparison, inline functions
+such as `Option::getOptionList()` are weak symbols as indicated by the letter
+`W` in `nm` output, and the dynamic linker does not try to resolve duplicated
+weak symbols to one definition by default (unless `LD_DYNAMIC_WEAK` is set or
+`RTLD_GLOBAL` is used with `dlopen`; more details can be found in `man ld.so`
+and `man dlopen`). Therefore, the variable `getOptionList()::options` in
+MinisatCS is resolved to the definition used by Minisat in pysat while the
+functions `getOptionList()` or `Option:: Option()` are still the MinisatCS
+version. They are incompatible since I changed the data layout of `vec` in
+MinisatCS. This is a classical ABI issue.
+
+The following example demonstrates this behavior:
+
+```cpp
+// header.h
+#pragma once
+#include <cstdio>
+int gint;
+class Init {
+   public:
+    Init() { printf("Init %p\n", this); }
+};
+class GlobarVar {
+    static Init& get() {
+        static Init init;
+        return init;
+    }
+
+   public:
+    GlobarVar() {
+        printf("GlobarVar in %s: self=%p: init=%p\n", NAME, this, &get());
+    }
+};
+static GlobarVar gv;
+void f() { printf("f() in %s\n", NAME); }
+extern "C" void run() {
+    f();
+    printf("run() in %s, gint=%p\n", NAME, &gint);
+}
+
+// a.cpp
+#define NAME "a"
+#include "header.h"
+
+// b.cpp
+#define NAME "b"
+#include "header.h"
+
+// main.cpp
+#include <dlfcn.h>
+int main(int argc, char **) {
+    int flags = argc >= 2 ? RTLD_NOW | RTLD_GLOBAL : RTLD_NOW;
+    auto h0 = dlopen("./a.so", flags), h1 = dlopen("./b.so", flags);
+    auto run0 = reinterpret_cast<void (*)()>(dlsym(h0, "run")),
+         run1 = reinterpret_cast<void (*)()>(dlsym(h1, "run"));
+    run0();
+    run1();
+}
+```
+
+```makefile
+# Makefile
+all: main
+
+%.so: %.cpp header.h
+	$(CXX) $< -o $@ -fPIC -shared -g
+
+main: main.cpp a.so b.so
+	$(CXX) $< -o $@ -ldl -g
+
+clean:
+	rm -f *.so main
+
+.PHONY: clean all
+```
+
+When we run `./main`, the two libraries are loaded with `RTLD_NOW`. As can be
+seen from the following output, they use their private function implementations
+but share the same `GlobarVar::get()::init` variable. Note that they have
+private versions of the global variable `gint`, which is different from the
+static local variable:
+```txt
+$ ./main
+Init 0x7faba5637079
+GlobarVar in a: self=0x7faba5637078: init=0x7faba5637079
+GlobarVar in b: self=0x7faba5632078: init=0x7faba5637079
+f() in a
+run() in a, gint=0x7faba5637074
+f() in b
+run() in b, gint=0x7faba5632074
+```
+
+If we run `./main 0`, the flags to `dlopen` are `RTLD_NOW | RTLD_GLOBAL`, which
+cause `ld.so` to reuse functions exported by `a.so` when resolving symbols in
+`b.so`. Note that we can still get `run()` in `b.so` by directly querying
+`dlsym`, but its internal call to `f()` is resolved to another implementation:
+```txt
+$ ./main 0
+Init 0x7fe8f4916079
+GlobarVar in a: self=0x7fe8f4916078: init=0x7fe8f4916079
+GlobarVar in a: self=0x7fe8f4911078: init=0x7fe8f4916079
+f() in a
+run() in a, gint=0x7fe8f4916074
+f() in a
+run() in b, gint=0x7fe8f4916074
+```
+
+# The root cause
+
+The code did work one year ago. Lots of things have been changed in one year
+because I use Arch Linux, a rolling release system. As we know there are symbol
+name conflicts, a natural question is, is the MinisatCS solver integration
+functioning as expected? Are the experimental results reported in the paper
+still valid? Oh no these are terrible thoughts. I need to figure out what's
+going on exactly.
+
+It could be the compiler/linker. For example, the old linker might resolve weak
+symbols to a unique definition so that MinisatCS actually invoked the
+constructors defined in Minisat, or the old compiler might use something other
+than unique global symbols for static local variables so that `getOptionList()::
+options` was not shared. But this is extremely unlikely, since such a
+modification in this fundamental layer of software stack is surely to break lots
+of things. To be sure, I still confirmed that the above test code behaves
+similarly on an old ubuntu 10.0 system.
+
+It could be that cpython modified its library loading behavior. It might have
+been using `RTLD_GLOBAL` for a long time and only removed this flag recently.
+However, this is not the case, as the code was actually written
+[years ago][pydlopen] and remains unchanged.
+
+I know that pysat has always included Minisat and thus I did not suspect it at
+first. I assumed the symbol name conflict always existed and spent a few hours
+trying to figure out why it worked one year ago. After ruling out all other
+possibilities, I took a closer look at pysat, and noticed something interesting:
+the Minisat solver shipped with pysat [actually uses][pysatm22] the namespace
+`Minisat22`!  Moreover, pysat uses the namespace `Minisat` for a [recently
+introduced][pysatmergesat] solver `MergeSat3`. So there were no name conflicts
+one year ago. Well, fine, I totally did not expect this.
+
+# The solution and the lessons
+
+The [fix][eevfix] is simple: use a dedicated namespace for MinisatCS. To make it
+more robust, I also added `-fvisibility=hidden` to the compiler command line,
+which marks all the internal symbols private so that the linker can not resolve
+them to other definitions.
+
+A few lessons learnt:
+
+1. Use a dedicated namespace early on. I initially did some experimental
+   modifications to Minisat and did not change the namespace. These
+   modifications accumulated as a separate project MinisatCS, but I totally
+   forgot about the namespace thing.
+2. Pinning dependencies is a good idea. I thought EEVBNN is simple and
+   self-contained enough with only a few dependencies and should not be broken
+   by future updates of third-party libraries. This turns out to be a naive
+   thought of a young person.
+
+[eevbnn]: <https://github.com/jia-kai/eevbnn>
+[cppvarinit]: <https://en.cppreference.com/w/cpp/language/initialization>
+[MinisatCS]: <https://github.com/jia-kai/minisatcs>
+[Minisat]: <http://minisat.se/>
+[mangle]: <https://itanium-cxx-abi.github.io/cxx-abi/abi.html#mangling>
+[initcode]: <https://itanium-cxx-abi.github.io/cxx-abi/abi.html#once-ctor>
+[pysat]: <https://github.com/pysathq/pysat>
+[pydlopen]: <https://github.com/python/cpython/blame/309110f37cdfc78d160ed08ae8faa6f6160ba87e/Python/pystate.c#L239>
+[pysatm22]: <https://github.com/pysathq/pysat/blob/a96bc5c6ab74fd718b760e16ec35a7141a660604/solvers/patches/minisat22.patch#L57>
+[pysatmergesat]: <https://github.com/pysathq/pysat/blame/a4cda38e24f345c959cf4e7c495461c41bfd1c9a/solvers/patches/mergesat3.patch#L1793>
+[eevfix]: <https://github.com/jia-kai/minisatcs/commit/21b5a73db7adac660040f999481a8f8b018d77e5>

@@ -27,10 +27,10 @@ I finally decided to set up my website. I'd like to achieve these goals:
 After checking out a few options, I decided to develop the website myself to
 meet my goals, starting from the minima theme that comes with Jekyll. I have not
 been working on front-end development for quite some years. This time I learned
-something new and useful: [cdnjs.com](https://cdnjs.com/){:target="_blank"}
-provides a great cache for javascript and CSS libraries, and [Font Awesome
-](https://fontawesome.com){:target="_blank"} and [Academicons
-](https://jpswalsh.github.io/academicons){:target="_blank"} provide useful icon
-sets.  The source code of this site is hosted on [github
-](https://github.com/jia-kai/jia-kai.github.io){:target="_blank"} and you are
+something new and useful: [cdnjs.com](https://cdnjs.com/) provides a great cache
+for javascript and CSS libraries, and [Font Awesome ](https://fontawesome.com)
+and [Academicons ](https://jpswalsh.github.io/academicons) provide useful icon
+sets. The source code of this site is hosted on [github][selfaddr] and you are
 welcome to adopt it :)
+
+[selfaddr]: <https://github.com/jia-kai/jia-kai.github.io>

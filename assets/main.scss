@@ -116,3 +116,11 @@
 footer .wrapper {
   color: $grey-color;
 }
+
+.post {
+    pre code {
+        font-size: $base-font-size * 0.7;
+        line-height: 1.2;
+        display: block;
+    }
+}
