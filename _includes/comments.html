@@ -1,0 +1,15 @@
+{%- if page.comments != false -%}
+
+  <div id="comment_thread"></div>
+
+  <div id="hyvor-talk-view"></div>
+  <script type="text/javascript">
+      var HYVOR_TALK_WEBSITE = 5792;
+      var HYVOR_TALK_CONFIG = {
+                url: "{{ page.url | absolute_url }}",
+                id: false
+            };
+  </script>
+  <script async type="text/javascript" src="//talk.hyvor.com/web-api/embed.js"></script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+{%- endif -%}
