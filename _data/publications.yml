@@ -192,10 +192,11 @@
       conf: "ACM Transactions on Graphics, Volume 40, Issue 4 (Proc. SIGGRAPH 2021)"
       conf_url: "https://dl.acm.org/doi/10.1145/3450626.3459755"
       tldr: >
-        Solve general nonlinear equations via higher-order approximation. This
-        paper also contains a short introduction to the very elegant and
-        interesting but lesser-known Asymptotic Numerical Method. This work is
-        an extension of my course project for 6.839 Advanced Computer Graphics.
+        This paper presents a system to automatically solve high-dimensional
+        nonlinear equations via higher-order approximation. This paper also
+        contains a short introduction to the very elegant and interesting but
+        lesser-known Asymptotic Numerical Method. This work is an extension of
+        my course project for 6.839 Advanced Computer Graphics.
       abs: >
         <p>Solving nonlinear systems is an important problem. Numerical
         continuation methods efficiently solve certain nonlinear systems. The
