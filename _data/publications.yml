@@ -33,7 +33,7 @@
          decreases as players become more capable.
       pdf: "https://arxiv.org/abs/2205.09905"
       bib: |
-          @InProceedings{10.1007/978-3-031-15714-1_18,
+          @inproceedings{yang2022on,
             author="Yang, Yichen and Jia, Kai and Rinard, Martin",
             editor="Kanellopoulos, Panagiotis and Kyropoulou, Maria and Voudouris, Alexandros",
             title="On the Impact of Player Capability on Congestion Games",
