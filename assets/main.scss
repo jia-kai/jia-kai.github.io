@@ -2,7 +2,16 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+$base-font-size: 20px;
+$base-line-height: 1.6;
+$content-width:    1024px;
+$on-laptop:        1024px;
+
 @import "minima";
+
+body {
+    text-align: justify;
+}
 
 @media only screen and (min-width: 600px) {
   .home #two-col  {
@@ -40,6 +49,7 @@
 }
 
 .publist-cat {
+  padding-top: 1em;
   .icon {
     color: #99738e;
     font-size: $base-font-size * 0.8;
@@ -56,14 +66,26 @@
   .title {
     font-style: italic;
     margin-left: -20px;
+    margin-top: 0.8em;
     i {
       font-size: 10px;
       vertical-align: middle;
       margin-right: 5px;
     }
   }
-  .authors .self {
-    font-weight: 600;
+  .authors {
+    .equal_contrib {
+      margin-left: -.2em;
+    }
+    .note {
+      padding-left: 1em;
+      font-size: .8em;
+      color: grey;
+      font-style: italic;
+    }
+    .self {
+      font-weight: 600;
+    }
   }
   .conf {
     font-style: italic;
@@ -97,7 +119,8 @@
 }
 
 .page-section-title {
-  margin-top: $base-font-size;
+  clear: both;
+  margin-top: 1em;
   span {
     display: table-cell;
     font-size: $base-font-size * 1.3;

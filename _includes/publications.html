@@ -4,6 +4,7 @@
 {% assign self_highlight = "<span class='self'>" |
     append: site.title | append: "</span>" %}
 {% assign pub_id = 0 %}
+{% assign equal_contrib_html = "<i class='equal_contrib'>*</i>" %}
 {% for pub_group in site.data.publications %}
 <div class="publist-cat">
   <i class="fas fa-list icon"></i>
@@ -17,7 +18,15 @@
       {{ pub.title }}
     </div>
     <div class="authors">{{ pub.authors | join: ", " |
-      replace: site.title, self_highlight }}
+      replace: site.title, self_highlight |
+      replace: "_equal_", equal_contrib_html
+    }}
+    {% for i in pub.authors %}
+        {% if i contains "_equal_" %}
+            <span class="note">(*: Equal contributions)</span>
+            {% break %}
+        {% endif %}
+    {% endfor %}
     </div>
     <div class="conf">
       {% if pub.conf_url %}

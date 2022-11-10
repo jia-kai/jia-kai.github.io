@@ -1,3 +1,49 @@
+- cat: Computational Game Theory
+  pubs:
+    - title: "On the Impact of Player Capability on Congestion Games"
+      key: playercap
+      authors:
+        - Yichen Yang _equal_
+        - Kai Jia _equal_
+        - Martin Rinard
+      conf: "15th International Symposium on Algorithmic Game Theory (SAGT 2022)"
+      conf_url: "https://www.essex.ac.uk/events/2022/09/11/sagt-2022"
+      tldr: >
+        We propose to study a new kind of game where players have limited
+        capability and analyze the impact of player capability on social welfare
+        in congestion games.
+      abs: >
+         We study the impact of player capability on social welfare in
+         congestion games. We introduce a new game, the Distance-bounded Network
+         Congestion game (DNC), as the basis of our study. DNC is a symmetric
+         network congestion game with a bound on the number of edges each player
+         can use. We show that DNC is PLS-complete in contrast to standard
+         symmetric network congestion games which are in P. To model different
+         player capabilities, we propose using programs in a Domain-Specific
+         Language (DSL) to compactly represent player strategies. We define a
+         player's capability as the maximum size of the programs they can use.
+         We introduce two variants of DNC with accompanying DSLs representing
+         the strategy spaces. We propose four capability preference properties
+         to characterize the impact of player capability on social welfare at
+         equilibrium. We then establish necessary and sufficient conditions for
+         the four properties in the context of our DNC variants. Finally, we
+         study a specific game where we derive exact expressions of the social
+         welfare in terms of the capability bound. This provides examples where
+         the social welfare at equilibrium increases, stays the same, or
+         decreases as players become more capable.
+      pdf: "https://arxiv.org/abs/2205.09905"
+      bib: |
+          @InProceedings{10.1007/978-3-031-15714-1_18,
+            author="Yang, Yichen and Jia, Kai and Rinard, Martin",
+            editor="Kanellopoulos, Panagiotis and Kyropoulou, Maria and Voudouris, Alexandros",
+            title="On the Impact of Player Capability on Congestion Games",
+            booktitle="Algorithmic Game Theory",
+            year="2022",
+            publisher="Springer International Publishing",
+            address="Cham",
+            pages="311--328",
+            isbn="978-3-031-15714-1"
+          }
 - cat: Neural Network Verification
   pubs:
     - title: "Exploiting Verified Neural Networks via Floating Point Numerical Error"
@@ -8,10 +54,10 @@
       conf: "28th Static Analysis Symposium (SAS 2021)"
       conf_url: "https://conf.researchr.org/home/sas-2021#event-overview"
       tldr: >
-        Complete verifiers (and many incomplete verifiers) for neural networks
-        ignore floating point error. We show that this leads to wrong
-        verification by presenting adversarial examples for networks that are
-        claimed to be robust by verifiers.
+        Practical complete verifiers (and many incomplete verifiers) for neural
+        networks ignore floating point error. We show that this leads to wrong
+        verification by presenting adversarial examples which are claimed to be
+        nonexistent by verifiers.
       abs: >
         <p>Motivated by the need to reliably characterize the robustness of
         deep neural networks, researchers have developed verification
@@ -54,8 +100,8 @@
       pdf: "https://arxiv.org/pdf/2108.07961"
       tldr: >
         Enumerating input states in the discretized input space is more
-        efficient and robust in verifying low-dimensional input neural networks
-        than those sophisticated verifiers.
+        efficient and robust for verifying low-dimensional input neural networks
+        than other sophisticated verifiers.
       abs: >
         <p>Deep neural networks are an attractive tool for compressing the control
         policy lookup tables in systems such as the Airborne Collision
@@ -100,8 +146,8 @@
       conf: "Advances in Neural Information Processing Systems 33 (NeurIPS 2020)"
       conf_url: "https://papers.nips.cc/paper/2020/hash/1385974ed5904a438616ff7bdb3f7439-Abstract.html"
       tldr: >
-        Efficiently verify BNNs via improved SAT solving and training methods
-        that induce easy-to-verify networks; train robust BNNs.
+        Efficient (thousands of times faster) verification of BNNs via improved
+        SAT solving and training methods; methods for training robust BNNs.
       abs: >
         Concerned with the reliability of neural networks, researchers have
         developed verification techniques to prove their robustness. Most
@@ -149,7 +195,7 @@
         Solve general nonlinear equations via higher-order approximation. This
         paper also contains a short introduction to the very elegant and
         interesting but lesser-known Asymptotic Numerical Method. This work is
-        an extension of my course project for Advanced Computer Graphics.
+        an extension of my course project for 6.839 Advanced Computer Graphics.
       abs: >
         <p>Solving nonlinear systems is an important problem. Numerical
         continuation methods efficiently solve certain nonlinear systems. The
