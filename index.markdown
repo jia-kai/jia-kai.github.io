@@ -6,8 +6,8 @@ Hello! I aim to create more reliable artificial intelligence systems with
 perspectives from programming languages, symbolic logic, and logical reasoning.
 I am also interested in computer systems (architecture, high-performance
 computing, software engineering) and computational modeling of the world
-(computer graphics, computational game theory). I enjoy developing mathematical
-and computational tools to solve problems. I also enjoy programming, especially
+(computer graphics, algorithmic game theory). I enjoy developing mathematical
+and computational tools to solve problems. I also enjoy coding, especially
 building large, agile software systems for complex tasks.
 
 I am currently a computer science PhD student at MIT, advised by [Martin
