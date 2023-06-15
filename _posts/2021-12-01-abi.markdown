@@ -311,6 +311,53 @@ A few lessons learnt:
    by future updates of third-party libraries. This turns out to be a naive
    thought of a young person.
 
+*Updates on Jun 15, 2023*
+
+Someone told me that the above observation is a result of inline functions. The
+current symbol types are:
+
+```txt
+$ nm -C a.so  | grep ::get
+0000000000004068 u guard variable for GlobarVar::get()::init
+000000000000122e W GlobarVar::get()
+0000000000004061 u GlobarVar::get()::init
+```
+
+By moving the definition of `GlobarVar::get()` out of the class (thus making it
+no longer an inline function), the symbols become normal code and data symbols:
+
+```diff
+--- header_old.h	2023-06-15 13:38:09.729780723 -0400
++++ header_new.h	2023-06-15 13:47:01.526508670 -0400
+@@ -6,10 +6,7 @@
+     Init() { printf("Init %p\n", this); }
+ };
+ class GlobarVar {
+-    static Init& get() {
+-        static Init init;
+-        return init;
+-    }
++    static Init& get();
+
+    public:
+     GlobarVar() {
+@@ -22,3 +19,7 @@
+     f();
+     printf("run() in %s, gint=%p\n", NAME, &gint);
+ }
++Init& GlobarVar::get() {
++    static Init init;
++    return init;
++}
+```
+
+```txt
+$ nm -C a.so  | grep ::get
+0000000000004068 b guard variable for GlobarVar::get()::init
+00000000000011e4 T GlobarVar::get()
+0000000000004065 b GlobarVar::get()::init
+```
+
 [eevbnn]: <https://github.com/jia-kai/eevbnn>
 [cppvarinit]: <https://en.cppreference.com/w/cpp/language/initialization>
 [MinisatCS]: <https://github.com/jia-kai/minisatcs>
