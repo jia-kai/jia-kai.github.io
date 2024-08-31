@@ -23,7 +23,7 @@ description: My academic path
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: jiakai.xyz
 url: "https://jiakai.xyz" # the base hostname & protocol for your site, e.g. http://example.com
-email: jiakai@mit.edu
+email: jiakai@csail.mit.edu
 copyright_begin: 2021
 
 # Build settings
@@ -41,7 +41,7 @@ header_pages:
   - url: "/#jump-about"
     title: "About"
   - url: "/#jump-publications"
-    title: "Publications"
+    title: "Papers"
   - url: "/#jump-posts"
     title: "Posts"
 

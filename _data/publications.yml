@@ -1,5 +1,53 @@
-- cat: Algorithmic Game Theory
+- cat: Limited-capability Games
   pubs:
+    - title: "Limited-perception Games"
+      key: limperc
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "arXiv:2405.16735"
+      conf_url: "https://arxiv.org/abs/2405.16735"
+      pdf: "https://arxiv.org/pdf/2405.16735"
+      tldr: >
+        We study a new game model where players make decisions based on
+        individualized inaccurate perceptions of the payoff functions. My PhD
+        thesis (available via MIT DSpace) extends this work.
+      abs: >
+        We study rational agents with different perception capabilities in
+        strategic games. We focus on a class of one-shot limited-perception
+        games. These games extend simultaneous-move normal-form games by
+        presenting each player with an individualized perception of all players'
+        payoff functions. The accuracy of a player's perception is determined by
+        the player's capability level. Capability levels are countable and
+        totally ordered, with a higher level corresponding to a more accurate
+        perception. We study the rational behavior of players in these games and
+        formalize relevant equilibria conditions. In contrast to equilibria in
+        conventional bimatrix games, which can be represented by a pair of mixed
+        strategies, in our limited perception games a higher-order response
+        function captures how the lower-capability player uses their (less
+        accurate) perception of the payoff function to reason about the (more
+        accurate) possible perceptions of the higher-capability opponent. This
+        response function characterizes, for each possible perception of the
+        higher-capability player (from the perspective of the lower-capability
+        player), the best response of the higher capability player for that
+        perception. Since the domain of the response function can be
+        exponentially large or even infinite, finding one equilibrium may be
+        computationally intractable or even undecidable. Nevertheless, we show
+        that for any \$\epsilon\$, there exists an \$\epsilon\$-equilibrium with
+        a compact, tractable representation whose size is independent of the
+        size of the response function's domain. We further identify classes of
+        zero-sum limited-perception games in which finding an equilibrium
+        becomes a (typically tractable) nonsmooth convex optimization problem.
+      bib: |
+        @misc{jia2024limited,
+          title={Limited-perception games},
+          author={Kai Jia and Martin Rinard},
+          year={2024},
+          eprint={2405.16735},
+          archivePrefix={arXiv},
+          primaryClass={cs.GT},
+          url={https://arxiv.org/abs/2405.16735}
+        }
     - title: "On the Impact of Player Capability on Congestion Games"
       key: playercap
       authors:
@@ -9,9 +57,9 @@
       conf: "15th International Symposium on Algorithmic Game Theory (SAGT 2022)"
       conf_url: "https://www.essex.ac.uk/events/2022/09/11/sagt-2022"
       tldr: >
-        We propose to study a new kind of game where players have limited
-        capability and analyze the impact of player capability on social welfare
-        in congestion games.
+        We study a new kind of congestion games where players have limited
+        strategy capability and analyze the impact of player capability on
+        social welfare.
       abs: >
          We study the impact of player capability on social welfare in
          congestion games. We introduce a new game, the Distance-bounded Network
@@ -31,7 +79,7 @@
          welfare in terms of the capability bound. This provides examples where
          the social welfare at equilibrium increases, stays the same, or
          decreases as players become more capable.
-      pdf: "https://arxiv.org/abs/2205.09905"
+      pdf: "https://arxiv.org/pdf/2205.09905"
       bib: |
           @inproceedings{yang2022on,
             author="Yang, Yichen and Jia, Kai and Rinard, Martin",
@@ -54,10 +102,10 @@
       conf: "28th Static Analysis Symposium (SAS 2021)"
       conf_url: "https://conf.researchr.org/home/sas-2021#event-overview"
       tldr: >
-        Practical complete verifiers (and many incomplete verifiers) for neural
-        networks ignore floating point error. We show that this leads to wrong
-        verification by presenting adversarial examples which are claimed to be
-        nonexistent by verifiers.
+        Complete verifiers (and many incomplete verifiers) for neural networks
+        ignore floating point error to achieve practical speed. We show that
+        this leads to wrong verification by presenting adversarial examples
+        which are claimed to be nonexistent by verifiers.
       abs: >
         <p>Motivated by the need to reliably characterize the robustness of
         deep neural networks, researchers have developed verification
@@ -183,8 +231,55 @@
          volume = {33},
          year = {2020}
         }
-- cat: Side Projects
+- cat: Numerical Optimization
   pubs:
+    - title: "TRAFS: A Nonsmooth Convex Optimization Algorithm with \\$\\mathcal{O}\\left(\\frac{1}{\\epsilon}\\right)\\$ Iteration Complexity"
+      key: trafs
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "arXiv:2311.06205"
+      conf_url: "https://arxiv.org/abs/2311.06205"
+      pdf: "https://arxiv.org/pdf/2311.06205"
+      tldr: >
+        We propose a new nonsmooth convex optimization algorithm with iteration
+        complexity \$\mathcal{O}\left(\frac{1}{\epsilon}\right)\$. The caveat is
+        that the algorithm requires solving a minimax problem at each iteration,
+        which can be easy or expensive depending on the objective function.
+        Still, TRAFS achieves competitive performance on benchmark problems.
+      abs: >
+        We present the Trust Region Adversarial Functional Subdifferential
+        (TRAFS) algorithm for constrained optimization of nonsmooth convex
+        Lipschitz functions. Unlike previous methods that assume a subgradient
+        oracle model, we work with the functional subdifferential defined as a
+        set of subgradients that simultaneously captures sufficient local
+        information for effective minimization while being easy to compute for a
+        wide range of functions. In each iteration, TRAFS finds the best step
+        vector in an $\ell_2$-bounded trust region by considering the worst
+        bound given by the functional subdifferential. TRAFS finds an
+        approximate solution with an absolute error up to \$\epsilon\$ in
+        \$\mathcal{O}\left( \epsilon^{-1}\right)\$ or \$\mathcal{O}
+        \left(\epsilon^{-0.5} \right)\$ iterations depending on whether the
+        objective function is strongly convex, compared to the previously
+        best-known bounds of \$\mathcal{O}\left(\epsilon^{-2}\right)\$ and
+        \$\mathcal{O}\left(\epsilon^{-1}\right)\$ in these settings. TRAFS makes
+        faster progress if the functional subdifferential satisfies a locally
+        quadratic property; as a corollary, TRAFS achieves linear convergence
+        (i.e., \$\mathcal{O}\left(\log \epsilon^{-1}\right)\$) for strongly
+        convex smooth functions. In the numerical experiments, TRAFS is on
+        average 39.1x faster and solves twice as many problems compared to the
+        second-best method.
+      code: "https://github.com/jia-kai/trafs"
+      bib: |
+        @misc{jia2024trafs,
+          title={TRAFS: A Nonsmooth Convex Optimization Algorithm with $\mathcal{O}\left(\frac{1}{\epsilon}\right)$ Iteration Complexity},
+          author={Kai Jia and Martin Rinard},
+          year={2024},
+          eprint={2311.06205},
+          archivePrefix={arXiv},
+          primaryClass={math.OC},
+          url={https://arxiv.org/abs/2311.06205}
+        }
     - title: "SANM: A Symbolic Asymptotic Numerical Solver with Applications in Mesh Deformation"
       key: sanm
       authors:
@@ -192,7 +287,7 @@
       conf: "ACM Transactions on Graphics, Volume 40, Issue 4 (Proc. SIGGRAPH 2021)"
       conf_url: "https://dl.acm.org/doi/10.1145/3450626.3459755"
       tldr: >
-        This paper presents a system to automatically solve high-dimensional
+        We present a system to automatically solve high-dimensional
         nonlinear equations via higher-order approximation. This paper also
         contains a short introduction to the very elegant and interesting but
         lesser-known Asymptotic Numerical Method. This work is an extension of
@@ -237,4 +332,154 @@
           year={2021},
           volume={40},
           number={4}
+        }
+- cat: Machine Learning Applications and Tricks
+  pubs:
+    - title: "A Pancreatic Cancer Risk Prediction Model (Prism) Developed and Validated on Large-scale US Clinical Data"
+      key: prism
+      authors:
+        - Kai Jia
+        - Steven Kundrotb
+        - Matvey B. Palchukb
+        - Jeff Warnickb
+        - Kathryn Haapalab
+        - Irving D. Kaplanc
+        - Martin Rinard
+        - Limor Appelbaum
+      conf: "eBioMedicine, Volume 98, 104888, December 2023 - The Lancet"
+      conf_url: "https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(23)00454-1/fulltext"
+      pdf: "https://www.thelancet.com/action/showPdf?pii=S2352-3964%2823%2900454-1"
+      tldr: >
+        We developed a pancreatic cancer (Pancreatic Duct Adenocarcinoma, PDAC)
+        risk prediction model that predicts a patient's PDAC risk within 6 to 18
+        months in the future. The model is based on routinely collected health
+        records, which makes future clinical deployment highly feasible.
+      abs: >
+        <p>Background <br />
+        Pancreatic Duct Adenocarcinoma (PDAC) screening can enable early-stage
+        disease detection and long-term survival. Current guidelines use
+        inherited predisposition, with about 10% of PDAC cases eligible for
+        screening. Using Electronic Health Record (EHR) data from a
+        multi-institutional federated network, we developed and validated a PDAC
+        RISk Model (Prism) for the general US population to extend early PDAC
+        detection.
+        </p>
+
+        <p>Methods <br />
+        Neural Network (PrismNN) and Logistic Regression (PrismLR) were
+        developed using EHR data from 55 US Health Care Organisations (HCOs) to
+        predict PDAC risk 6–18 months before diagnosis for patients 40 years or
+        older. Model performance was assessed using Area Under the Curve (AUC)
+        and calibration plots. Models were internal-externally validated by
+        geographic location, race, and time. Simulated model deployment
+        evaluated Standardised Incidence Ratio (SIR) and other metrics.
+        </p>
+
+        <p>Findings <br />
+        With 35,387 PDAC cases, 1,500,081 controls, and 87 features per patient,
+        PrismNN obtained a test AUC of 0.826 (95% CI: 0.824–0.828) (PrismLR:
+        0.800 (95% CI: 0.798–0.802)). PrismNN's average internal-external
+        validation AUCs were 0.740 for locations, 0.828 for races, and 0.789 (95%
+        CI: 0.762–0.816) for time. At SIR = 5.10 (exceeding the current
+        screening inclusion threshold) in simulated model deployment, PrismNN
+        sensitivity was 35.9% (specificity 95.3%).
+
+        <p>Interpretation <br />
+        Prism models demonstrated good accuracy and generalizability across
+        diverse populations. PrismNN could find 3.5 times more cases at
+        comparable risk than current screening guidelines. The small number of
+        features provided a basis for model interpretation. Integration with the
+        federated network provided data from a large, heterogeneous patient
+        population and a pathway to future clinical deployment.
+        </p>
+
+        <p>Funding <br />
+        Prevent Cancer Foundation, TriNetX, Boeing, DARPA, NSF, and Aarno Labs.
+        </p>
+      bib: |
+        @article{jia2023pancreatic,
+          title={A pancreatic cancer risk prediction model (Prism) developed and validated on large-scale US clinical data},
+          author={Jia, Kai and Kundrot, Steven and Palchuk, Matvey B and Warnick, Jeff and Haapala, Kathryn and Kaplan, Irving D and Rinard, Martin and Appelbaum, Limor},
+          journal={EBioMedicine},
+          volume={98},
+          year={2023},
+          publisher={Elsevier}
+        }
+    - title: "Effective Neural Network \\$\\ell_0\\$ Regularization With BinMask"
+      key: binmask
+      authors:
+        - Kai Jia
+        - Martin Rinard
+      conf: "arXiv:2304.11237"
+      conf_url: "https://arxiv.org/abs/2304.11237"
+      pdf: "https://arxiv.org/pdf/2304.11237"
+      tldr: >
+        BinMask (i.e., multiplying weights by binary masks with straight-through
+        estimator for BP) appears to be an effective method (in terms of ease of
+        training, few hyperparameters, and final model performance) for
+        \$\ell_0\$ regularization in neural networks. Of note, BinMask was also
+        used for training sparse binarized neural networks for fast
+        verification.
+      abs: >
+        \$\ell_0\$ regularization of neural networks is a fundamental problem.
+        In addition to regularizing models for better generalizability,
+        \$\ell_0\$ regularization also applies to selecting input features and
+        training sparse neural networks. There is a large body of research on
+        related topics, some with quite complicated methods. In this paper, we
+        show that a straightforward formulation, BinMask, which multiplies
+        weights with deterministic binary masks and uses the identity
+        straight-through estimator for backpropagation, is an effective
+        \$\ell_0\$ regularizer. We evaluate BinMask on three tasks: feature
+        selection, network sparsification, and model regularization. Despite its
+        simplicity, BinMask achieves competitive performance on all the
+        benchmarks without task-specific tuning compared to methods designed for
+        each task. Our results suggest that decoupling weights from mask
+        optimization, which has been widely adopted by previous work, is a key
+        component for effective \$\ell_0\$ regularization.
+      bib: |
+        @misc{jia2023effective,
+          title={Effective Neural Network $L_0$ Regularization With BinMask},
+          author={Kai Jia and Martin Rinard},
+          year={2023},
+          eprint={2304.11237},
+          archivePrefix={arXiv},
+          primaryClass={cs.LG},
+          url={https://arxiv.org/abs/2304.11237}
+        }
+    - title: "Sound Explanation for Trustworthy Machine Learning"
+      key: soundexp
+      authors:
+        - Kai Jia
+        - Pasapol Saowakon
+        - Limor Appelbaum
+        - Martin Rinard
+      conf: "arXiv:2306.06134"
+      conf_url: "https://arxiv.org/abs/2306.06134"
+      pdf: "https://arxiv.org/pdf/2306.06134"
+      tldr: >
+        For attribution-based model interpretation methods, we propose four
+        desirable properties and prove that no method satisfies all four. We
+        advocate sound explanation, which needs to provide sufficient
+        information to causally explain the model's decision.
+      abs: >
+        We take a formal approach to the explainability problem of machine
+        learning systems. We argue against the practice of interpreting
+        black-box models via attributing scores to input components due to
+        inherently conflicting goals of attribution-based interpretation. We
+        prove that no attribution algorithm satisfies specificity, additivity,
+        completeness, and baseline invariance. We then formalize the concept,
+        sound explanation, that has been informally adopted in prior work. A
+        sound explanation entails providing sufficient information to causally
+        explain the predictions made by a system. Finally, we present the
+        application of feature selection as a sound explanation for cancer
+        prediction models to cultivate trust among clinicians.
+      bib: |
+        @misc{jia2023sound,
+          title={Sound Explanation for Trustworthy Machine Learning},
+          author={Kai Jia and Pasapol Saowakon and Limor Appelbaum and Martin Rinard},
+          year={2023},
+          eprint={2306.06134},
+          archivePrefix={arXiv},
+          primaryClass={cs.LG},
+          url={https://arxiv.org/abs/2306.06134}
         }

@@ -3,7 +3,7 @@
   name: Google Scholar
 
 - icon: fas fa-envelope
-  link: mailto:jiakai@mit.edu
+  link: mailto:jiakai@csail.mit.edu
   name: Email
 
 - icon: fab fa-github
@@ -11,5 +11,5 @@
   name: GitHub
 
 - icon: fab fa-linkedin
-  link: https://www.linkedin.com/in/kai-jia-948a442b/
+  link: https://www.linkedin.com/in/kai--jia/
   name: LinkedIn
