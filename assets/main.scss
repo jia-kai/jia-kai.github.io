@@ -2,7 +2,7 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-$base-font-size: 20px;
+$base-font-size: 18px;
 $base-line-height: 1.6;
 $content-width:    1024px;
 $on-laptop:        1024px;
@@ -160,9 +160,29 @@ footer .wrapper {
 }
 
 .post {
+    .post-plot {
+        display: block;
+        width: 800px;
+        max-width: 100%;
+        margin: 1em auto;
+    }
+
     pre code {
-        font-size: $base-font-size * 0.7;
+        font-size: $base-font-size * 0.8;
         line-height: 1.2;
         display: block;
+    }
+
+    .derivation-box {
+        margin: 1.5em 0;
+        padding: 1em 1.25em;
+        overflow-x: auto;
+        border-left: 4px solid #99738e;
+        border-radius: 0 4px 4px 0;
+        background: rgba(153, 115, 142, 0.08);
+
+        > :last-child {
+            margin-bottom: 0;
+        }
     }
 }

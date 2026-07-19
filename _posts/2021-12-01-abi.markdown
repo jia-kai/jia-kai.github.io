@@ -2,7 +2,6 @@
 layout: post
 title:  "ABI is the culprit, once again"
 date: 2021-12-01 23:27:49 -0500
-categories: none
 ---
 
 A few days ago, some researchers from UCSB approached me regarding a few

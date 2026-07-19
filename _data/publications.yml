@@ -34,7 +34,7 @@
         perception. Since the domain of the response function can be
         exponentially large or even infinite, finding one equilibrium may be
         computationally intractable or even undecidable. Nevertheless, we show
-        that for any \$\epsilon\$, there exists an \$\epsilon\$-equilibrium with
+        that for any $\epsilon$, there exists an $\epsilon$-equilibrium with
         a compact, tractable representation whose size is independent of the
         size of the response function's domain. We further identify classes of
         zero-sum limited-perception games in which finding an equilibrium
@@ -234,7 +234,7 @@
         }
 - cat: Numerical Optimization
   pubs:
-    - title: "TRAFS: A Nonsmooth Convex Optimization Algorithm with \\$\\mathcal{O}\\left(\\frac{1}{\\epsilon}\\right)\\$ Iteration Complexity"
+    - title: "TRAFS: A Nonsmooth Convex Optimization Algorithm with $\\mathcal{O}\\left(\\frac{1}{\\epsilon}\\right)$ Iteration Complexity"
       key: trafs
       authors:
         - Kai Jia
@@ -244,7 +244,7 @@
       pdf: "https://arxiv.org/pdf/2311.06205"
       tldr: >
         We propose a new nonsmooth convex optimization algorithm with iteration
-        complexity \$\mathcal{O}\left(\frac{1}{\epsilon}\right)\$. The caveat is
+        complexity $\mathcal{O}\left(\frac{1}{\epsilon}\right)$. The caveat is
         that the algorithm requires solving a minimax problem at each iteration,
         which can be easy or expensive depending on the objective function.
         Still, TRAFS achieves competitive performance on benchmark problems.
@@ -258,15 +258,15 @@
         wide range of functions. In each iteration, TRAFS finds the best step
         vector in an $\ell_2$-bounded trust region by considering the worst
         bound given by the functional subdifferential. TRAFS finds an
-        approximate solution with an absolute error up to \$\epsilon\$ in
-        \$\mathcal{O}\left( \epsilon^{-1}\right)\$ or \$\mathcal{O}
-        \left(\epsilon^{-0.5} \right)\$ iterations depending on whether the
+        approximate solution with an absolute error up to $\epsilon$ in
+        $\mathcal{O}\left( \epsilon^{-1}\right)$ or $\mathcal{O}
+        \left(\epsilon^{-0.5} \right)$ iterations depending on whether the
         objective function is strongly convex, compared to the previously
-        best-known bounds of \$\mathcal{O}\left(\epsilon^{-2}\right)\$ and
-        \$\mathcal{O}\left(\epsilon^{-1}\right)\$ in these settings. TRAFS makes
+        best-known bounds of $\mathcal{O}\left(\epsilon^{-2}\right)$ and
+        $\mathcal{O}\left(\epsilon^{-1}\right)$ in these settings. TRAFS makes
         faster progress if the functional subdifferential satisfies a locally
         quadratic property; as a corollary, TRAFS achieves linear convergence
-        (i.e., \$\mathcal{O}\left(\log \epsilon^{-1}\right)\$) for strongly
+        (i.e., $\mathcal{O}\left(\log \epsilon^{-1}\right)$) for strongly
         convex smooth functions. In the numerical experiments, TRAFS is on
         average 39.1x faster and solves twice as many problems compared to the
         second-best method.
@@ -336,6 +336,74 @@
         }
 - cat: Machine Learning Applications and Tricks
   pubs:
+    - title: "AI-guided automated identification of patients at high-risk for hepatocellular carcinoma in large US and Global datasets"
+      key: liric
+      authors:
+        - Eric Lahtinen
+        - Kai Jia
+        - Bowen Gu
+        - Pasapol Saowakon
+        - Steven Kundrot
+        - Matvey B. Palchuk
+        - Jeff Warnick
+        - Irving D. Kaplan
+        - Michael Curry
+        - Ammar Sarwar
+        - Martin Rinard
+        - Limor Appelbaum
+      conf: "JHEP Reports, Volume 8, Issue 8, 101859, August 2026"
+      conf_url: "https://doi.org/10.1016/j.jhepr.2026.101859"
+      pdf: "https://pmc.ncbi.nlm.nih.gov/articles/PMC13320471/pdf"
+      tldr: >
+        We adopted the PRISM method (see below) for liver cancer without any
+        target-specific tuning of the core algorithms.
+      abs: >
+        <p>Background &amp; Aims <br />
+        Hepatocellular carcinoma (HCC) screening targets patients with cirrhosis
+        but lacks risk stratification and misses non-cirrhotic cases. We
+        evaluated whether LIver cancer RIsk Computation (LIRIC) models built
+        from routinely collected electronic health record (EHR) data can
+        predict 3-year HCC risk in general and cirrhosis populations and
+        generalize across diverse US and international cohorts.
+        </p>
+
+        <p>Methods <br />
+        We conducted a multicenter study using longitudinal EHR data from 64 US
+        and 29 ex-US healthcare organizations. US models were developed in
+        general and cirrhosis cohorts with 46,679 cases and 1,128,202 controls,
+        internally-externally validated by site, race/ethnicity, and time, and
+        evaluated in a simulated silent deployment. External validation applied
+        US models to ex-US cohorts, and region-specific ex-US models were also
+        trained.
+        </p>
+
+        <p>Results <br />
+        In the US general population, LIRICNN achieved an AUC of 0.93 using 46
+        features. Internal-external AUCs averaged 0.93 across sites and
+        race/ethnicity strata. US-trained models applied to ex-US data achieved
+        an AUC of 0.84, while region-specific retraining restored performance to
+        an AUC of 0.94.
+        </p>
+
+        <p>Conclusions <br />
+        LIRIC models accurately stratified HCC risk using routine EHR data in
+        both general and cirrhosis populations and could be adapted for
+        international settings via local retraining. These results support
+        LIRIC as a scalable foundation for risk-based HCC surveillance and
+        future prospective implementation studies.
+        </p>
+      bib: |
+        @article{lahtinen2026liver,
+          title={AI-guided automated identification of patients at high risk for hepatocellular carcinoma in large US and global datasets},
+          author={Lahtinen, Eric and Jia, Kai and Gu, Bowen and Saowakon, Pasapol and Kundrot, Steven and Palchuk, Matvey B and Warnick, Jeff and Kaplan, Irving D and Curry, Michael and Sarwar, Ammar and Rinard, Martin and Appelbaum, Limor},
+          journal={JHEP Reports},
+          volume={8},
+          number={8},
+          pages={101859},
+          year={2026},
+          publisher={Elsevier},
+          doi={10.1016/j.jhepr.2026.101859}
+        }
     - title: "A Pancreatic Cancer Risk Prediction Model (Prism) Developed and Validated on Large-scale US Clinical Data"
       key: prism
       authors:
@@ -406,7 +474,7 @@
           year={2023},
           publisher={Elsevier}
         }
-    - title: "Effective Neural Network \\$\\ell_0\\$ Regularization With BinMask"
+    - title: "Effective Neural Network $\\ell_0$ Regularization With BinMask"
       key: binmask
       authors:
         - Kai Jia
@@ -418,25 +486,25 @@
         BinMask (i.e., multiplying weights by binary masks with straight-through
         estimator for BP) appears to be an effective method (in terms of ease of
         training, few hyperparameters, and final model performance) for
-        \$\ell_0\$ regularization in neural networks. Of note, BinMask was also
+        $\ell_0$ regularization in neural networks. Of note, BinMask was also
         used for training sparse binarized neural networks for fast
         verification.
       abs: >
-        \$\ell_0\$ regularization of neural networks is a fundamental problem.
+        $\ell_0$ regularization of neural networks is a fundamental problem.
         In addition to regularizing models for better generalizability,
-        \$\ell_0\$ regularization also applies to selecting input features and
+        $\ell_0$ regularization also applies to selecting input features and
         training sparse neural networks. There is a large body of research on
         related topics, some with quite complicated methods. In this paper, we
         show that a straightforward formulation, BinMask, which multiplies
         weights with deterministic binary masks and uses the identity
         straight-through estimator for backpropagation, is an effective
-        \$\ell_0\$ regularizer. We evaluate BinMask on three tasks: feature
+        $\ell_0$ regularizer. We evaluate BinMask on three tasks: feature
         selection, network sparsification, and model regularization. Despite its
         simplicity, BinMask achieves competitive performance on all the
         benchmarks without task-specific tuning compared to methods designed for
         each task. Our results suggest that decoupling weights from mask
         optimization, which has been widely adopted by previous work, is a key
-        component for effective \$\ell_0\$ regularization.
+        component for effective $\ell_0$ regularization.
       bib: |
         @misc{jia2023effective,
           title={Effective Neural Network $L_0$ Regularization With BinMask},

@@ -2,7 +2,6 @@
 layout: post
 title:  "My website is up!"
 date: 2021-08-10 21:05:51 +0800
-categories: none
 ---
 
 I finally decided to set up my website. I'd like to achieve these goals:
