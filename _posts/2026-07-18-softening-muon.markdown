@@ -2,6 +2,7 @@
 layout: post
 title: "Softening Muon for Better Optimization in Certain Applications"
 date: 2026-07-18
+description: "Soft Muon uses scale-adaptive regularized polar maps to soften weak singular directions, improving validation loss and sharpness in a ViT finetuning task."
 ---
 
 Muon is a relatively new first-order optimization algorithm. It empirically

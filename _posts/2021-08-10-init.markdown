@@ -2,6 +2,7 @@
 layout: post
 title:  "My website is up!"
 date: 2021-08-10 21:05:51 +0800
+description: "Why this academic website was built with Jekyll and GitHub Pages, from publication organization to accessible, low-maintenance blogging."
 ---
 
 I finally decided to set up my website. I'd like to achieve these goals:

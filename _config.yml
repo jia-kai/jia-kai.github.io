@@ -26,10 +26,22 @@ url: "https://jiakai.xyz" # the base hostname & protocol for your site, e.g. htt
 email: jiakai@csail.mit.edu
 copyright_begin: 2021
 
+author:
+  name: Kai Jia
+  url: "https://jiakai.xyz"
+
 # Build settings
 # theme: minima
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
 
 kramdown:
   math_engine: mathjax

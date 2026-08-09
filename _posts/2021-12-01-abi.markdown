@@ -2,6 +2,7 @@
 layout: post
 title:  "ABI is the culprit, once again"
 date: 2021-12-01 23:27:49 -0500
+description: "A debugging journey through C++ initialization and dynamic linking reveals an ABI symbol collision between Minisat-based Python extensions."
 ---
 
 A few days ago, some researchers from UCSB approached me regarding a few
