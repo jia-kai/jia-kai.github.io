@@ -1,0 +1,76 @@
+---
+layout: post
+title: "Owning my photos by self-hosting Immich"
+date: 2026-09-04
+description: "I want full control of my photo data. Self-hosted Immich worked out pretty well."
+---
+
+Google One reminded me to pay next year's bill, which also reminded me that all
+of my precious photos are at Google's mercy. Over the last two decades, I've
+switched devices multiple times while trusting Google to maintain my full photo
+archive (worse, I didn't even have a local full copy).
+
+Now I no longer want to place this trust in Google. It has long ceased to be a
+"Don't be evil" company (e.g., [Google Maps recently chose to follow the Trump
+administration's renaming of Lake Ontario as Lake America][lake-america]). The
+worry about my photos disappearing from Google Photos is also not unfounded.
+There are user reports claiming their accounts were disabled due to false
+positives from automatic flagging systems (e.g., [case 1][case-1] and [case 2]
+[case-2]). Data privacy is also a concern. Per [Google's policy][google-policy],
+"We don't train any generative AI models **outside of** Google Photos with your
+personal data in Google Photos" (emphasis mine). This does not rule out training
+models used within Google Photos. The same policy also says that, when Photos is
+connected to other services, Google may train on summaries, inferences, and
+generated media based on the contents of a Google Photos library.
+
+So I shopped around for a self-hosting solution. My criteria are simple: nice UX,
+basic ML features for photo analysis/search, a professionally maintained
+open-source codebase, and a healthy funding model likely to sustain future
+development. [Immich](https://immich.app/) turns out to be a good fit.
+
+I bought a used Dell OptiPlex 7060 mini PC with 16GiB RAM for less than CA$300
+to host Immich. I exposed the Immich instance to the Internet via a custom
+domain that resolves to a VPS connected to the mini PC at my home via WireGuard.
+Installing Immich was super easy: starting a few Docker containers was
+sufficient. I used [OVHcloud][ovh-ca] to host the Internet-facing VPS and object
+storage for data backups with rustic. OVHcloud is a French cloud provider,
+operates data centers in Canada, and provides a simpler, more intuitive UI than
+AWS.
+
+The migration process was mostly fine. I used Google Takeout to download my
+photo library. I then used [immich-go][immich-go] to import it into Immich.
+There were two issues. The first was that Immich's CUDA OCR worker [seems to
+have a memory leak][immich-issue-cuda], which I bypassed by setting up a health
+check to restart the container once GPU memory usage passes a certain threshold.
+The other issue was that some files in my Google Takeout archive had JPEG
+content despite their `.HEIC` extension, which confused Immich. I submitted a
+[patch][immich-go-pr] to immich-go as a workaround.
+
+The user experience with Immich is better than with Google Photos. Since all data
+are served from NVMe storage over my own network, the UI feels blazingly fast. I
+can scroll to any date and the photos and videos just load in a fraction of a
+second, while Google Photos always felt sluggish. ML features like semantic
+search, face recognition, and OCR also work well enough. I don't have any
+complaints so far.
+
+The final task was to reduce my Google One storage usage so I would no longer
+need a paid subscription. As you have guessed, Google does not provide an easy
+method to batch-delete photos. In the end, I tasked GPT 5.6 with writing a few
+scripts using Playwright to delete all of my photos through the UI. I still
+needed a few iterations to get them working correctly, so here they are if you
+want to use them: [login.py]({{ '/assets/posts/immich/login.py' | relative_url
+}}) for starting the system-installed Chromium to sign in to Google Photos
+(because Google rejected login attempts through Playwright's embedded Chromium),
+and [remove_all.py]({{ '/assets/posts/immich/remove_all.py' | relative_url }})
+to remove all the photos. **WARNING:** This script deletes all photos and videos
+and empties the entire Trash, permanently erasing its contents.
+
+
+[lake-america]: https://web.archive.org/web/20260830045626/https://blog.google/products-and-platforms/products/maps/gnis-lake-ontario-lake-america-name-change/
+[case-1]: https://web.archive.org/web/20260905031846/https://support.google.com/accounts/thread/434201920
+[case-2]: https://web.archive.org/web/20260905032130/https://www.reddit.com/r/googlephotos/comments/1qk8nzt/another_case_of_false_positive_csam_violation
+[google-policy]: https://web.archive.org/web/20260617022324/https://support.google.com/photos/answer/15344015
+[immich-go]: https://github.com/simulot/immich-go
+[immich-issue-cuda]: https://github.com/immich-app/immich/issues/23462
+[immich-go-pr]: https://github.com/simulot/immich-go/pull/1436
+[ovh-ca]: https://www.ovhcloud.com/en-ca/

@@ -25,7 +25,6 @@ layout: default
       {{ content }}
     </div>
   </div>
-  {%- include publications.html -%}
   {%- if site.posts.size > 0 -%}
   <div class="page-section-title">
       <span><a id="jump-posts"></a>Posts</span><span class="right"><hr /></span>
@@ -47,4 +46,5 @@ layout: default
     {%- endfor -%}
   </ul>
   {%- endif -%}
+  {%- include publications.html -%}
 </div>

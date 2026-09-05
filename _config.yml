@@ -55,10 +55,10 @@ goatcounter: "https://jiakai.goatcounter.com/count"
 header_pages:
   - url: "/#jump-about"
     title: "About"
-  - url: "/#jump-publications"
-    title: "Papers"
   - url: "/#jump-posts"
     title: "Posts"
+  - url: "/#jump-publications"
+    title: "Papers"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
