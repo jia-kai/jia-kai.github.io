@@ -13,13 +13,13 @@ archive (worse, I didn't even have a local full copy).
 Now I no longer want to place this trust in Google. It has long ceased to be a
 "Don't be evil" company (e.g., [Google Maps recently chose to follow the Trump
 administration's renaming of Lake Ontario as Lake America][lake-america]). The
-worry about my photos disappearing from Google Photos is also not unfounded.
-There are user reports claiming their accounts were disabled due to false
-positives from automatic flagging systems (e.g., [case 1][case-1] and [case 2]
-[case-2]). Data privacy is also a concern. Per [Google's policy][google-policy],
-"We don't train any generative AI models **outside of** Google Photos with your
-personal data in Google Photos" (emphasis mine). This does not rule out training
-models used within Google Photos. The same policy also says that, when Photos is
+worry about my photos disappearing from Google Photos is not unfounded. There
+are user reports claiming their accounts were disabled due to false positives
+from automatic flagging systems (e.g., [case 1][case-1] and [case 2] [case-2]).
+Data privacy is also a concern. Per [Google's policy][google-policy], "We don't
+train any generative AI models **outside of** Google Photos with your personal
+data in Google Photos" (emphasis mine). This does not rule out training models
+used within Google Photos. The same policy also says that, when Photos is
 connected to other services, Google may train on summaries, inferences, and
 generated media based on the contents of a Google Photos library.
 
@@ -46,12 +46,13 @@ The other issue was that some files in my Google Takeout archive had JPEG
 content despite their `.HEIC` extension, which confused Immich. I submitted a
 [patch][immich-go-pr] to immich-go as a workaround.
 
-The user experience with Immich is better than with Google Photos. Since all data
-are served from NVMe storage over my own network, the UI feels blazingly fast. I
-can scroll to any date and the photos and videos just load in a fraction of a
-second, while Google Photos always felt sluggish. ML features like semantic
+The user experience with Immich is better than with Google Photos. Since all
+data are served from NVMe storage over my own network, the UI feels blazingly
+fast. I can scroll to any date and the photos and videos just load in a fraction
+of a second, while Google Photos always felt sluggish. ML features like semantic
 search, face recognition, and OCR also work well enough. I don't have any
-complaints so far.
+complaints so far. If you find Immich helpful and can afford it, please consider
+supporting the project by purchasing Immich.
 
 The final task was to reduce my Google One storage usage so I would no longer
 need a paid subscription. As you have guessed, Google does not provide an easy
